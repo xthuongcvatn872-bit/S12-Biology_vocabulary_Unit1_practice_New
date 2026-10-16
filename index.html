@@ -42,6 +42,7 @@
       flex-direction: column;
     }
 
+    /* HEADER & NAV */
     header {
       background: linear-gradient(135deg, var(--primary-dark), var(--primary));
       color: white;
@@ -149,7 +150,7 @@
     .btn-outline { background: #e2e8f0; color: #334155; }
     .btn-outline:hover { background: #cbd5e1; }
 
-    /* WELCOME SCREEN */
+    /* MÀN HÌNH WELCOME */
     .welcome-container {
       max-width: 500px;
       margin: 1.5rem auto;
@@ -223,7 +224,6 @@
       border: 1px solid var(--border);
       box-shadow: var(--shadow-sm);
     }
-
     .fc-slide-container {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -576,13 +576,13 @@
       </div>
     </section>
 
-    <!-- MÀN HÌNH 4: ĐẤU TRƯỜNG (5 PHÚT / 10 CÂU) -->
+    <!-- MÀN HÌNH 4: ĐẤU TRƯỜNG (ARENA) - THỜI GIAN 3 PHÚT = 180 GIÂY -->
     <section id="screen-arena" class="screen">
       <div id="arenaLockBox" class="card" style="max-width: 480px; margin: 1.5rem auto; text-align: center;">
         <span style="font-size: 2.3rem;">🛡️</span>
         <h2 style="font-weight: 800; color: var(--primary-dark); margin: 0.4rem 0; font-size: 1.45rem;">Đấu Trường Trực Tuyến</h2>
         <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-          Nhập mã phòng thi do giáo viên cung cấp để mở đề (Thời gian: 05 phút). Kết quả được lưu trực tiếp vào Google Sheets.
+          Nhập mã phòng thi do giáo viên cung cấp để mở đề (Thời gian: 03 phút). Kết quả được lưu trực tiếp vào Google Sheets.
         </p>
 
         <div class="form-group">
@@ -599,7 +599,7 @@
           </div>
           <div class="timer-badge">
             <span>⏱️</span>
-            <span id="arenaTimer">05:00</span>
+            <span id="arenaTimer">03:00</span>
           </div>
         </div>
 
@@ -738,13 +738,14 @@
       }
     ];
 
-    // CẤU HÌNH ĐẤU TRƯỜNG: 5 PHÚT
+    /* 2. CẤU HÌNH ĐẤU TRƯỜNG: 3 PHÚT (180 GIÂY) */
     const ARENA_CONFIG = {
       validCodes: ["CVA", "TUDO"],
-      durationMinutes: 5,
+      durationMinutes: 3,
       googleSheetUrl: "https://script.google.com/macros/s/AKfycbycbqEZwaLYM9BM-CButPO5wgVPh64QlOTawiDltBzuOhlJTmFGto1c_2T4mZBk6MqefQ/exec"
     };
 
+    /* 3. BỘ ĐỀ ĐẤU TRƯỜNG (10 CÂU: MCQ, ĐÚNG/SAI, ĐIỀN SỐ) */
     const ARENA_EXAMS = {
       defaultExam: [
         {
@@ -827,7 +828,7 @@
       ]
     };
 
-    /* 2. USER & NAVIGATION LOGIC */
+    /* 4. USER & NAVIGATION LOGIC */
     let currentUser = { name: "", class: "", id: "" };
     let currentCardIndex = 0;
     let practiceQuestions = [];
@@ -837,7 +838,7 @@
     let currentArenaIdx = 0;
     let arenaAnswers = {};
     let arenaTimerInterval = null;
-    let arenaRemainingSeconds = 300; // 5 phút = 300 giây
+    let arenaRemainingSeconds = 180; // 3 phút = 180 giây
 
     function switchScreen(screenName) {
       document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
@@ -882,7 +883,7 @@
       }
     }
 
-    /* 3. FLASHCARD ENGINE */
+    /* 5. FLASHCARD ENGINE */
     function renderFlashcard(index) {
       if (index < 0) index = 0;
       if (index >= VOCABULARY_DATA.length) index = VOCABULARY_DATA.length - 1;
@@ -891,16 +892,13 @@
       const item = VOCABULARY_DATA[index];
       document.getElementById("fcCounter").innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
 
-      // Nạp ảnh
       const imgEl = document.getElementById("fcImg");
       imgEl.src = `media/${item.code}.png`;
 
-      // Nạp audio
       const audioEl = document.getElementById("fcAudio");
       audioEl.src = `media/${item.code}.mp3`;
       audioEl.load();
 
-      // Nạp video trực tiếp
       const videoEl = document.getElementById("fcVideo");
       videoEl.pause();
       videoEl.src = `media/${item.code}.mp4`;
@@ -949,7 +947,7 @@
       }
     }
 
-    /* 4. REVIEW QUIZ */
+    /* 6. REVIEW QUIZ */
     function initPracticeQuiz(totalQuestions) {
       document.getElementById("btnQuiz10").classList.toggle("btn-primary", totalQuestions === 10);
       document.getElementById("btnQuiz20").classList.toggle("btn-primary", totalQuestions === 20);
@@ -1190,7 +1188,7 @@
       }
     }
 
-    /* 5. ARENA SYSTEM (ĐÃ CHỈNH RÚT XUỐNG 5 PHÚT = 300 GIÂY) */
+    /* 7. ARENA SYSTEM (ĐẾM NGƯỢC 3 PHÚT = 180 GIÂY) */
     function startArenaExam() {
       const rawInput = document.getElementById("arenaRoomCodeInput").value.trim().toUpperCase();
       const cleanInput = rawInput.replace(/\s+/g, '');
@@ -1216,7 +1214,7 @@
       arenaQuestions = [...ARENA_EXAMS.defaultExam];
       arenaAnswers = {};
       currentArenaIdx = 0;
-      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60; // 5 phút = 300 giây
+      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60; // 3 * 60 = 180 giây
 
       renderArenaSlider();
       renderArenaQuestion();
@@ -1233,7 +1231,7 @@
 
         if (arenaRemainingSeconds <= 0) {
           clearInterval(arenaTimerInterval);
-          alert("⏰ Hết thời gian làm bài (05 phút)! Hệ thống tự động nộp bài.");
+          alert("⏰ Đã hết 03 phút làm bài! Hệ thống tự động nộp bài.");
           submitArenaExam(true);
         }
       }, 1000);
@@ -1337,7 +1335,7 @@
       document.getElementById("arenaResultScore").innerText = `${correctCount} / ${total}`;
       document.getElementById("arenaResultScale10").innerText = scale10;
 
-      // GỬI CHUẨN CÁC TRƯỜNG DỮ LIỆU ĐỂ SHEET GHI THẲNG HÀNG
+      // PAYLOAD CHUẨN ĐỒNG BỘ 7 CỘT THẲNG HÀNG TRÊN GOOGLE SHEETS (TÍNH THEO MỐC 3 PHÚT)
       const payload = {
         action: "submitScore",
         timestamp: new Date().toLocaleString("vi-VN"),
@@ -1374,7 +1372,7 @@
       document.getElementById("arenaExamBox").style.display = "none";
     }
 
-    /* 6. VIEWS COUNTER */
+    /* 8. VIEWS COUNTER */
     function initViewCounter() {
       let views = parseInt(localStorage.getItem("s12_bio_views") || "1024", 10);
       views += 1;
