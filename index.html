@@ -576,13 +576,13 @@
       </div>
     </section>
 
-    <!-- MÀN HÌNH 4: ĐẤU TRƯỜNG -->
+    <!-- MÀN HÌNH 4: ĐẤU TRƯỜNG (5 PHÚT / 10 CÂU) -->
     <section id="screen-arena" class="screen">
       <div id="arenaLockBox" class="card" style="max-width: 480px; margin: 1.5rem auto; text-align: center;">
         <span style="font-size: 2.3rem;">🛡️</span>
         <h2 style="font-weight: 800; color: var(--primary-dark); margin: 0.4rem 0; font-size: 1.45rem;">Đấu Trường Trực Tuyến</h2>
         <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-          Nhập mã phòng thi do giáo viên cung cấp để mở đề. Kết quả được lưu trực tiếp vào bảng điểm Google Sheets.
+          Nhập mã phòng thi do giáo viên cung cấp để mở đề (Thời gian: 05 phút). Kết quả được lưu trực tiếp vào Google Sheets.
         </p>
 
         <div class="form-group">
@@ -599,7 +599,7 @@
           </div>
           <div class="timer-badge">
             <span>⏱️</span>
-            <span id="arenaTimer">10:00</span>
+            <span id="arenaTimer">05:00</span>
           </div>
         </div>
 
@@ -653,7 +653,7 @@
   </footer>
 
   <script>
-    /* 1. VOCABULARY DATA KHỚP ĐÚNG TỪNG TÊN FILE TRÊN REPO */
+    /* 1. VOCABULARY DATA */
     const VOCABULARY_DATA = [
       {
         id: 1,
@@ -738,9 +738,10 @@
       }
     ];
 
+    // CẤU HÌNH ĐẤU TRƯỜNG: 5 PHÚT
     const ARENA_CONFIG = {
       validCodes: ["CVA", "TUDO"],
-      durationMinutes: 10,
+      durationMinutes: 5,
       googleSheetUrl: "https://script.google.com/macros/s/AKfycbycbqEZwaLYM9BM-CButPO5wgVPh64QlOTawiDltBzuOhlJTmFGto1c_2T4mZBk6MqefQ/exec"
     };
 
@@ -836,7 +837,7 @@
     let currentArenaIdx = 0;
     let arenaAnswers = {};
     let arenaTimerInterval = null;
-    let arenaRemainingSeconds = 600;
+    let arenaRemainingSeconds = 300; // 5 phút = 300 giây
 
     function switchScreen(screenName) {
       document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
@@ -881,7 +882,7 @@
       }
     }
 
-    /* 3. FLASHCARD ENGINE: GÁN TRỰC TIẾP VIDEO SRC ĐỂ HIỂN THỊ TỨC THÌ */
+    /* 3. FLASHCARD ENGINE */
     function renderFlashcard(index) {
       if (index < 0) index = 0;
       if (index >= VOCABULARY_DATA.length) index = VOCABULARY_DATA.length - 1;
@@ -899,7 +900,7 @@
       audioEl.src = `media/${item.code}.mp3`;
       audioEl.load();
 
-      // Nạp video dứt khoát trực tiếp vào src của thẻ video
+      // Nạp video trực tiếp
       const videoEl = document.getElementById("fcVideo");
       videoEl.pause();
       videoEl.src = `media/${item.code}.mp4`;
@@ -1189,7 +1190,7 @@
       }
     }
 
-    /* 5. ARENA SYSTEM & ĐỒNG BỘ ĐÚNG CÁC TRƯỜNG DỮ LIỆU GOOGLE SHEETS */
+    /* 5. ARENA SYSTEM (ĐÃ CHỈNH RÚT XUỐNG 5 PHÚT = 300 GIÂY) */
     function startArenaExam() {
       const rawInput = document.getElementById("arenaRoomCodeInput").value.trim().toUpperCase();
       const cleanInput = rawInput.replace(/\s+/g, '');
@@ -1215,7 +1216,7 @@
       arenaQuestions = [...ARENA_EXAMS.defaultExam];
       arenaAnswers = {};
       currentArenaIdx = 0;
-      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60;
+      arenaRemainingSeconds = ARENA_CONFIG.durationMinutes * 60; // 5 phút = 300 giây
 
       renderArenaSlider();
       renderArenaQuestion();
@@ -1232,7 +1233,7 @@
 
         if (arenaRemainingSeconds <= 0) {
           clearInterval(arenaTimerInterval);
-          alert("⏰ Hết thời gian làm bài! Hệ thống tự động nộp bài.");
+          alert("⏰ Hết thời gian làm bài (05 phút)! Hệ thống tự động nộp bài.");
           submitArenaExam(true);
         }
       }, 1000);
@@ -1336,7 +1337,7 @@
       document.getElementById("arenaResultScore").innerText = `${correctCount} / ${total}`;
       document.getElementById("arenaResultScale10").innerText = scale10;
 
-      // PAYLOAD CHUẨN CÁC TRƯỜNG DỮ LIỆU ĐỂ GHI THẲNG HÀNG TRÊN SHEETS
+      // GỬI CHUẨN CÁC TRƯỜNG DỮ LIỆU ĐỂ SHEET GHI THẲNG HÀNG
       const payload = {
         action: "submitScore",
         timestamp: new Date().toLocaleString("vi-VN"),
