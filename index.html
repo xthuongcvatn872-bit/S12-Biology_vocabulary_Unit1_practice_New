@@ -152,7 +152,7 @@
     .btn-outline { background: #e2e8f0; color: #334155; }
     .btn-outline:hover { background: #cbd5e1; }
 
-    /* WELCOME SCREEN */
+    /* MÀN HÌNH WELCOME */
     .welcome-container {
       max-width: 500px;
       margin: 1.5rem auto;
@@ -339,7 +339,7 @@
     }
     .btn-next:hover { background: var(--primary-dark); }
 
-    /* REVIEW QUIZ & ARENA */
+    /* REVIEW QUIZ & ARENA NAVIGATION */
     .quiz-nav-slider {
       display: flex;
       gap: 0.4rem;
@@ -541,7 +541,7 @@
       </div>
     </section>
 
-    <!-- MÀN HÌNH 3: REVIEW QUIZ -->
+    <!-- MÀN HÌNH 3: REVIEW QUIZ (CÓ NÚT NỘP BÀI THƯỜNG TRỰC) -->
     <section id="screen-practice" class="screen">
       <div class="card" style="margin-bottom: 1rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
@@ -558,7 +558,7 @@
       </div>
 
       <!-- Khung làm bài Luyện tập -->
-      <div class="card" id="practiceQuizCard" style="display: none;">
+      <div class="card" id="practiceQuizCard">
         <div class="quiz-nav-slider" id="practiceNavSlider"></div>
 
         <div style="margin-bottom: 1.25rem;">
@@ -572,7 +572,7 @@
 
         <div id="practiceQuestionBody"></div>
 
-        <!-- Thanh điều hướng có nút NỘP BÀI THƯỜNG TRỰC Ở TẤT CẢ CÁC TRANG CÂU HỎI -->
+        <!-- THANH ĐIỀU HƯỚNG CÓ NÚT NỘP BÀI THƯỜNG TRỰC TẠI TẤT CẢ CÁC TRANG CÂU HỎI -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
           <div style="display: flex; gap: 0.5rem;">
             <button class="btn btn-outline" onclick="prevPracticeQuestion()">⬅️ Câu trước</button>
@@ -697,7 +697,6 @@
         const gain = this.ctx.createGain();
 
         osc.type = 'sine';
-        // Chuỗi hợp âm vui tươi E5 -> G5
         osc.frequency.setValueAtTime(659.25, now);
         osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.12);
 
@@ -718,7 +717,6 @@
         const gain = this.ctx.createGain();
 
         osc.type = 'triangle';
-        // Âm trầm nhẹ nhắc nhở 220Hz -> 180Hz
         osc.frequency.setValueAtTime(220, now);
         osc.frequency.exponentialRampToValueAtTime(180, now + 0.18);
 
@@ -934,6 +932,12 @@
       if (activeIdx >= 0) {
         document.querySelectorAll(".nav-tabs .tab-btn")[activeIdx].classList.add("active");
       }
+
+      // Tự động sinh đề 10 câu ngay nếu học sinh mở tab Luyện tập lần đầu
+      if (screenName === 'practice' && practiceQuestions.length === 0) {
+        initPracticeQuiz(10);
+      }
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -1032,7 +1036,7 @@
     }
 
     /* ==========================================================================
-       6. REVIEW QUIZ (CÓ NÚT NỘP BÀI THƯỜNG TRỰC & HIỆU ỨNG ÂM THANH)
+       6. REVIEW QUIZ (NÚT NỘP BÀI THƯỜNG TRỰC & ÂM THANH PHẢN HỒI ĐÚNG / SAI)
        ========================================================================== */
     function initPracticeQuiz(totalQuestions) {
       document.getElementById("btnQuiz10").classList.toggle("btn-primary", totalQuestions === 10);
