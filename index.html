@@ -149,7 +149,7 @@
     .btn-outline { background: #e2e8f0; color: #334155; }
     .btn-outline:hover { background: #cbd5e1; }
 
-    /* MÀN HÌNH WELCOME */
+    /* WELCOME SCREEN */
     .welcome-container {
       max-width: 500px;
       margin: 1.5rem auto;
@@ -171,7 +171,7 @@
       box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
     }
 
-    /* MÀN HÌNH FLASHCARD COMPACT & ĐỐI XỨNG */
+    /* FLASHCARD COMPACT & ĐỐI XỨNG */
     .unit-hero-badge {
       display: inline-block;
       background: var(--primary-light);
@@ -205,7 +205,6 @@
       margin-bottom: 0.85rem;
     }
 
-    /* BỐ CỤC 2 CỘT CÂN BẰNG TỰ NHIÊN */
     .flashcard-dual-grid {
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
@@ -225,7 +224,6 @@
       box-shadow: var(--shadow-sm);
     }
 
-    /* Khung ảnh slide 16:9 sắc nét, không bị xén chữ */
     .fc-slide-container {
       width: 100%;
       aspect-ratio: 16 / 9;
@@ -261,7 +259,6 @@
       margin-bottom: 0.85rem;
     }
 
-    /* WIDGET LUYỆN NHỚ TỪ: ĐẶT NGAY BÊN TRÁI DƯỚI ẢNH/AUDIO */
     .scramble-compact-box {
       background: #f0fdf4;
       border: 1.5px dashed #86efac;
@@ -301,7 +298,6 @@
       padding: 0.45rem 0.75rem;
     }
 
-    /* KHUNG VIDEO BÊN PHẢI (CHÂN DUNG GỌN GÀNG, VỪA KHÍT) */
     .fc-video-container {
       width: 100%;
       max-width: 320px;
@@ -318,7 +314,6 @@
       object-fit: contain;
     }
 
-    /* THANH NÚT ĐIỀU HƯỚNG PREVIOUS / NEXT */
     .fc-nav-controls {
       display: flex;
       justify-content: center;
@@ -491,7 +486,7 @@
       </div>
     </section>
 
-    <!-- MÀN HÌNH 2: FLASHCARD ĐA PHƯƠNG TIỆN (GỌN GÀNG, LIỀN KHỐI) -->
+    <!-- MÀN HÌNH 2: FLASHCARD ĐA PHƯƠNG TIỆN -->
     <section id="screen-flashcard" class="screen">
       <div style="text-align: center; margin-bottom: 0.85rem;">
         <span class="unit-hero-badge">Unit 1 - DNA and DNA replication</span>
@@ -500,12 +495,10 @@
         <div class="fc-counter-pill" id="fcCounter">1 / 9</div>
       </div>
 
-      <!-- 2 CỘT CÂN XỨNG: BÊN TRÁI CHỨA CẢ ẢNH + AUDIO + SCRAMBLE -->
       <div class="flashcard-dual-grid">
-        <!-- Cột trái: Ảnh Slide + Audio + Luyện nhớ từ (Scramble) -->
         <div class="fc-column-card">
           <div class="fc-slide-container" id="fcSlideWrapper">
-            <img id="fcImg" src="" alt="Slide thuật ngữ" onerror="handleImageError(this)" />
+            <img id="fcImg" src="" alt="Slide thuật ngữ" onerror="handleImageFallback(this)" />
           </div>
 
           <div>
@@ -516,7 +509,6 @@
             <audio id="fcAudio" class="audio-full-player" controls src="" preload="auto"></audio>
           </div>
 
-          <!-- Widget Luyện nhớ từ (Scramble) đặt ngay dưới audio -->
           <div class="scramble-compact-box">
             <div class="scramble-heading">✏️ Luyện nhớ từ này: Sắp xếp lại các chữ cái</div>
             <div class="scramble-chips-row" id="scrambleLettersContainer"></div>
@@ -528,22 +520,19 @@
           </div>
         </div>
 
-        <!-- Cột phải: Teacher's Guide & Video giáo viên -->
         <div class="fc-column-card">
           <div class="fc-video-title">
             <span>🎥</span>
             <span>Teacher's Guide</span>
           </div>
           <div class="fc-video-container">
-            <video id="fcVideo" controls preload="auto" playsinline>
-              <source src="" type="video/mp4">
+            <video id="fcVideo" controls preload="metadata" playsinline>
               Trình duyệt không hỗ trợ thẻ video.
             </video>
           </div>
         </div>
       </div>
 
-      <!-- THANH ĐIỀU HƯỚNG PREVIOUS / NEXT (ĐẶT NGAY DƯỚI CARD) -->
       <div class="fc-nav-controls">
         <button class="btn btn-prev" onclick="navigateCard(-1)">◀ Previous</button>
         <button class="btn btn-next" onclick="navigateCard(1)">Next ▶</button>
@@ -663,9 +652,8 @@
     </div>
   </footer>
 
-  <!-- JAVASCRIPT APP CONTROLLER -->
   <script>
-    /* 1. DATA DEFINITIONS (CHUẨN HÓA KHỚP 100% VỚI TÊN FILE THỰC TẾ TRONG MEDIA/) */
+    /* 1. VOCABULARY DATA KHỚP ĐÚNG TỪNG TÊN FILE TRÊN REPO */
     const VOCABULARY_DATA = [
       {
         id: 1,
@@ -838,7 +826,7 @@
       ]
     };
 
-    /* 2. USER & APP NAVIGATION LOGIC */
+    /* 2. USER & NAVIGATION LOGIC */
     let currentUser = { name: "", class: "", id: "" };
     let currentCardIndex = 0;
     let practiceQuestions = [];
@@ -893,7 +881,7 @@
       }
     }
 
-    /* 3. FLASHCARD ENGINE (GỌN GÀNG, KHÔNG KHOẢNG TRỐNG THỪA) */
+    /* 3. FLASHCARD ENGINE: GÁN TRỰC TIẾP VIDEO SRC ĐỂ HIỂN THỊ TỨC THÌ */
     function renderFlashcard(index) {
       if (index < 0) index = 0;
       if (index >= VOCABULARY_DATA.length) index = VOCABULARY_DATA.length - 1;
@@ -902,21 +890,25 @@
       const item = VOCABULARY_DATA[index];
       document.getElementById("fcCounter").innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
 
+      // Nạp ảnh
       const imgEl = document.getElementById("fcImg");
       imgEl.src = `media/${item.code}.png`;
 
+      // Nạp audio
       const audioEl = document.getElementById("fcAudio");
       audioEl.src = `media/${item.code}.mp3`;
       audioEl.load();
 
+      // Nạp video dứt khoát trực tiếp vào src của thẻ video
       const videoEl = document.getElementById("fcVideo");
+      videoEl.pause();
       videoEl.src = `media/${item.code}.mp4`;
       videoEl.load();
 
       setupScramble(item.word);
     }
 
-    function handleImageError(imgEl) {
+    function handleImageFallback(imgEl) {
       imgEl.src = "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=800&auto=format&fit=crop&q=80";
     }
 
@@ -1197,7 +1189,7 @@
       }
     }
 
-    /* 5. ARENA SYSTEM (MÃ PHÒNG: CVA, TUDO, TU DO) */
+    /* 5. ARENA SYSTEM & ĐỒNG BỘ ĐÚNG CÁC TRƯỜNG DỮ LIỆU GOOGLE SHEETS */
     function startArenaExam() {
       const rawInput = document.getElementById("arenaRoomCodeInput").value.trim().toUpperCase();
       const cleanInput = rawInput.replace(/\s+/g, '');
@@ -1344,16 +1336,17 @@
       document.getElementById("arenaResultScore").innerText = `${correctCount} / ${total}`;
       document.getElementById("arenaResultScale10").innerText = scale10;
 
+      // PAYLOAD CHUẨN CÁC TRƯỜNG DỮ LIỆU ĐỂ GHI THẲNG HÀNG TRÊN SHEETS
       const payload = {
         action: "submitScore",
         timestamp: new Date().toLocaleString("vi-VN"),
-        studentName: currentUser.name,
-        studentClass: currentUser.class,
-        roomCode: document.getElementById("arenaCurrentRoomLabel").innerText,
-        score: correctCount,
-        totalQuestions: total,
-        scale10: scale10,
-        timeSpentSeconds: (ARENA_CONFIG.durationMinutes * 60) - arenaRemainingSeconds
+        examType: "Dau_Truong",
+        name: currentUser.name,
+        class: currentUser.class,
+        room: document.getElementById("arenaCurrentRoomLabel").innerText,
+        score: scale10,
+        correctCount: `${correctCount}/${total}`,
+        timeSpent: (ARENA_CONFIG.durationMinutes * 60) - arenaRemainingSeconds
       };
 
       const syncStatus = document.getElementById("arenaResultSyncStatus");
