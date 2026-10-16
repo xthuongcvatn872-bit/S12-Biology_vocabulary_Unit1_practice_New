@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S12 - Biology Vocab: Unit 1 - Di truyền & Sinh học phân tử</title>
+  <title>Biology Interactive Learning - Unit 1: DNA and DNA replication</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,19 +16,20 @@
       --ocean-dark: #0369a1;
       --ocean-light: #e0f2fe;
       --amber: #d97706;
+      --amber-dark: #b45309;
       --amber-light: #fef3c7;
-      --bg: #f1f8f5;
+      --bg: #f8fafc;
       --card-bg: #ffffff;
       --text: #1f2937;
-      --text-muted: #6b7280;
-      --border: #e5e7eb;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
       --success: #10b981;
       --danger: #ef4444;
-      --radius-lg: 18px;
-      --radius-md: 10px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-      --shadow-md: 0 4px 14px rgba(5,150,105,0.08);
-      --shadow-lg: 0 12px 28px rgba(0,0,0,0.09);
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 16px rgba(5,150,105,0.08);
+      --shadow-lg: 0 12px 28px rgba(0,0,0,0.08);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -40,6 +41,8 @@
       display: flex;
       flex-direction: column;
     }
+
+    /* TOP HEADER & TABS */
     header {
       background: linear-gradient(135deg, var(--primary-dark), var(--primary));
       color: white;
@@ -50,7 +53,7 @@
       z-index: 50;
     }
     .header-inner {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -61,15 +64,15 @@
     .brand-title {
       font-size: 1.2rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      letter-spacing: -0.02em;
     }
     .user-badge {
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(6px);
-      padding: 0.4rem 0.95rem;
+      padding: 0.35rem 0.9rem;
       border-radius: 9999px;
       font-size: 0.85rem;
       font-weight: 600;
@@ -83,7 +86,7 @@
       background: white;
       padding: 0.5rem 1rem;
       border-bottom: 1px solid var(--border);
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       width: 100%;
       overflow-x: auto;
@@ -107,11 +110,12 @@
     .tab-btn.active {
       background: var(--primary);
       color: white;
-      box-shadow: 0 2px 6px rgba(5,150,105,0.3);
+      box-shadow: 0 2px 6px rgba(5,150,105,0.25);
     }
+
     main {
       flex: 1;
-      max-width: 1200px;
+      max-width: 1040px;
       width: 100%;
       margin: 1.25rem auto;
       padding: 0 1rem;
@@ -134,28 +138,28 @@
       gap: 0.45rem;
       font-weight: 700;
       font-size: 0.95rem;
-      padding: 0.65rem 1.25rem;
+      padding: 0.65rem 1.3rem;
       border-radius: var(--radius-md);
       border: none;
       cursor: pointer;
       transition: all 0.2s;
+      text-decoration: none;
     }
     .btn-primary { background: var(--primary); color: white; }
     .btn-primary:hover { background: var(--primary-dark); }
-    .btn-ocean { background: var(--ocean); color: white; }
-    .btn-ocean:hover { background: var(--ocean-dark); }
     .btn-amber { background: var(--amber); color: white; }
-    .btn-outline { background: white; border: 1.5px solid var(--border); color: var(--text); }
-    .btn-outline:hover { background: #f9fafb; border-color: var(--text-muted); }
+    .btn-amber:hover { background: var(--amber-dark); }
+    .btn-outline { background: #e2e8f0; color: #334155; }
+    .btn-outline:hover { background: #cbd5e1; }
 
-    /* Welcome */
+    /* MÀN HÌNH WELCOME */
     .welcome-container {
       max-width: 520px;
-      margin: 1.5rem auto;
+      margin: 2rem auto;
       text-align: center;
     }
     .form-group { text-align: left; margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .form-group label { display: block; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
     .form-control {
       width: 100%;
       padding: 0.75rem 1rem;
@@ -170,128 +174,203 @@
       box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
     }
 
-    /* Flashcard */
-    .flashcard-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-    @media (max-width: 880px) {
-      .flashcard-grid { grid-template-columns: 1fr; }
-    }
-    .media-card { display: flex; flex-direction: column; gap: 1rem; }
-    .media-img-wrap {
-      width: 100%;
-      height: 250px;
-      background: #eef2f6;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-    .media-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .media-img-wrap svg { width: 100%; height: 100%; }
-
-    .media-video-wrap {
-      width: 100%;
-      aspect-ratio: 9/16;
-      max-height: 440px;
-      background: #090d16;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-    }
-    .media-video-wrap video { width: 100%; height: 100%; object-fit: contain; }
-
-    .word-badge {
+    /* MÀN HÌNH FLASHCARD (CHUẨN HÓA THEO MẪU ẢNH SỐ 3) */
+    .unit-hero-badge {
       display: inline-block;
-      background: var(--ocean);
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 800;
+      padding: 0.35rem 1.1rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
       margin-bottom: 0.5rem;
     }
-    .main-word {
-      font-size: 2rem;
+    .unit-hero-title {
+      font-size: 1.85rem;
       font-weight: 800;
       color: var(--primary-dark);
-      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
     }
-    .ipa-text {
-      color: var(--ocean-dark);
-      font-size: 1.1rem;
-      font-weight: 600;
-      font-family: monospace;
-      margin-bottom: 0.75rem;
+    .unit-hero-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
     }
-    .audio-row {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin: 0.75rem 0;
-      background: var(--ocean-light);
-      padding: 0.6rem 0.9rem;
-      border-radius: var(--radius-md);
-    }
-    .audio-player-custom { flex: 1; height: 36px; }
-    .btn-speak-tts {
-      background: var(--ocean);
-      color: white;
-      border: none;
-      padding: 0.5rem 0.85rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      white-space: nowrap;
-    }
-    .btn-speak-tts:hover { background: var(--ocean-dark); }
-
-    .def-box {
-      background: #f9fafb;
-      padding: 0.85rem;
-      border-radius: var(--radius-md);
-      border-left: 4px solid var(--primary);
-      margin-bottom: 0.6rem;
-    }
-    .def-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); }
-
-    .scramble-widget {
-      background: var(--amber-light);
-      border: 1.5px dashed var(--amber);
-      padding: 1.25rem;
-      border-radius: var(--radius-md);
-      margin-top: 1rem;
-    }
-    .scramble-letters {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin: 0.5rem 0 0.85rem;
-    }
-    .letter-chip {
-      background: white;
-      border: 1.5px solid var(--amber);
-      color: var(--amber);
+    .fc-counter-pill {
+      display: inline-block;
+      background: #f1f5f9;
+      color: #334155;
       font-weight: 800;
-      font-size: 1.15rem;
-      padding: 0.35rem 0.8rem;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      font-size: 1rem;
+      padding: 0.35rem 1.2rem;
+      border-radius: 9999px;
+      margin-bottom: 1.25rem;
     }
 
-    /* Quiz Navigation */
+    .flashcard-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 820px) {
+      .flashcard-dual-grid { grid-template-columns: 1fr; }
+    }
+
+    .fc-column-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+    }
+    .fc-slide-container {
+      width: 100%;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #f8fafc;
+      border: 1px solid #edf2f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .fc-slide-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .fc-listen-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 1rem;
+      margin-bottom: 0.65rem;
+    }
+    .audio-full-player {
+      width: 100%;
+      height: 40px;
+    }
+
+    .fc-video-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 1rem;
+      margin-bottom: 0.65rem;
+    }
+    .fc-video-container {
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .fc-video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .fc-nav-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .btn-prev {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 0.65rem 1.6rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+    }
+    .btn-prev:hover { background: #bfdbfe; }
+    .btn-next {
+      background: var(--primary);
+      color: white;
+      padding: 0.65rem 1.8rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+    }
+    .btn-next:hover { background: var(--primary-dark); }
+
+    /* WIDGET SCRAMBLE BỀ RỘNG TRÀN NGANG */
+    .scramble-full-card {
+      background: #f0fdf4;
+      border: 1.5px dashed #86efac;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .scramble-heading {
+      font-weight: 700;
+      color: var(--primary-dark);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .scramble-chips-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .scramble-chip {
+      background: #dcfce7;
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: 1.25rem;
+      padding: 0.45rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      min-width: 44px;
+    }
+    .scramble-input-group {
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-cta-exam {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 500px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 0.9rem 1.5rem;
+      border-radius: 9999px;
+      box-shadow: 0 6px 18px rgba(217, 119, 6, 0.35);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-cta-exam:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(217, 119, 6, 0.45);
+    }
+
+    /* MÀN HÌNH REVIEW QUIZ & ARENA */
     .quiz-nav-slider {
       display: flex;
       gap: 0.4rem;
@@ -359,7 +438,7 @@
 
     footer {
       text-align: center;
-      padding: 1.5rem;
+      padding: 1.75rem;
       font-size: 0.85rem;
       color: var(--text-muted);
       border-top: 1px solid var(--border);
@@ -370,8 +449,8 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: #f3f4f6;
-      padding: 0.3rem 0.75rem;
+      background: #f1f5f9;
+      padding: 0.3rem 0.8rem;
       border-radius: 9999px;
       font-weight: 600;
       color: var(--ocean-dark);
@@ -381,6 +460,7 @@
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
     <div class="header-inner">
       <div class="brand-title">
@@ -393,6 +473,7 @@
     </div>
   </header>
 
+  <!-- NAVIGATION TABS -->
   <nav class="nav-tabs">
     <button class="tab-btn active" onclick="switchScreen('welcome')">🏠 Trang chủ</button>
     <button class="tab-btn" onclick="switchScreen('flashcard')">🗂️ Flashcard Đa phương tiện</button>
@@ -401,14 +482,12 @@
   </nav>
 
   <main>
-    <!-- SCREEN 1: WELCOME (KHÔNG CÒN CHỮ MỜ, NHẬP BẤT KỲ GÌ CŨNG ĐƯỢC) -->
+    <!-- MÀN HÌNH 1: WELCOME (KHÔNG CÒN CHỮ MỜ, NHẬP BẤT KỲ GÌ CŨNG ĐƯỢC) -->
     <section id="screen-welcome" class="screen active">
       <div class="card welcome-container">
-        <span style="display:inline-block; background: var(--primary-light); color: var(--primary-dark); font-weight:800; padding:0.35rem 1rem; border-radius:9999px; font-size:0.85rem; margin-bottom:1rem;">
-          HỆ THỐNG ÔN TẬP THUẬT NGỮ SINH HỌC 12
-        </span>
+        <span class="unit-hero-badge">HỆ THỐNG ÔN TẬP THUẬT NGỮ SINH HỌC 12</span>
         <h1 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 0.5rem;">
-          Unit 1: Di truyền & Sinh học phân tử
+          Unit 1: Di truyền học & Sinh học phân tử
         </h1>
         <p style="color: var(--text-muted); margin-bottom: 1.75rem; font-size: 0.95rem;">
           Luyện nghe phát âm chuẩn IPA, ghi nhớ cấu trúc phân tử và thử sức tại Đấu trường thi đua.
@@ -440,81 +519,72 @@
       </div>
     </section>
 
-    <!-- SCREEN 2: FLASHCARD -->
+    <!-- MÀN HÌNH 2: FLASHCARD ĐA PHƯƠNG TIỆN (CHUẨN FORM ẢNH SỐ 3) -->
     <section id="screen-flashcard" class="screen">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-        <div>
-          <h2 style="font-weight: 800; color: var(--primary-dark);">Thẻ ghi nhớ & Phát âm chuẩn</h2>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">Học nghĩa, luyện nghe giọng bản ngữ và rèn phản xạ chính tả</p>
+      <div style="text-align: center; margin-bottom: 1.25rem;">
+        <span class="unit-hero-badge">Unit 1 - DNA and DNA replication</span>
+        <h2 class="unit-hero-title">Biology Interactive Learning</h2>
+        <p class="unit-hero-sub">Học liệu số & Kiểm tra đánh giá thuật ngữ Sinh học</p>
+        <div class="fc-counter-pill" id="fcCounter">1 / 9</div>
+      </div>
+
+      <!-- 2 CỘT CÂN ĐỐI NGUYÊN BẢN -->
+      <div class="flashcard-dual-grid">
+        <!-- Cột trái: Ảnh Slide bài học & Listen Repeat -->
+        <div class="fc-column-card">
+          <div class="fc-slide-container" id="fcSlideWrapper">
+            <img id="fcImg" src="" alt="Slide thuật ngữ" onerror="handleImageError(this)" />
+          </div>
+          <div>
+            <div class="fc-listen-title">
+              <span>📢</span>
+              <span>Listen & Repeat</span>
+            </div>
+            <audio id="fcAudio" class="audio-full-player" controls src="" preload="auto"></audio>
+          </div>
         </div>
-        <div style="display: flex; gap: 0.5rem;">
-          <button class="btn btn-outline" onclick="navigateCard(-1)">⬅️ Trước</button>
-          <span id="fcCounter" style="display: flex; align-items: center; font-weight: 700; padding: 0 0.5rem;">1 / 9</span>
-          <button class="btn btn-primary" onclick="navigateCard(1)">Tiếp ➡️</button>
+
+        <!-- Cột phải: Teacher's Guide & Video giáo viên -->
+        <div class="fc-column-card">
+          <div class="fc-video-title">
+            <span>🎥</span>
+            <span>Teacher's Guide</span>
+          </div>
+          <div class="fc-video-container">
+            <video id="fcVideo" controls preload="auto" playsinline>
+              <source src="" type="video/mp4">
+              Trình duyệt không hỗ trợ thẻ video.
+            </video>
+          </div>
         </div>
       </div>
 
-      <div class="flashcard-grid">
-        <!-- Khối trái -->
-        <div class="card media-card">
-          <div class="media-img-wrap" id="fcImgWrapper">
-            <img id="fcImg" src="" alt="Minh họa thuật ngữ" onerror="handleImageError(this)" />
-          </div>
+      <!-- THANH ĐIỀU HƯỚNG PREVIOUS / NEXT -->
+      <div class="fc-nav-controls">
+        <button class="btn btn-prev" onclick="navigateCard(-1)">◀ Previous</button>
+        <button class="btn btn-next" onclick="navigateCard(1)">Next ▶</button>
+      </div>
 
-          <div>
-            <span class="word-badge" id="fcCodeBadge">Unit 1 • 001_DNA</span>
-            <div class="main-word" id="fcWord">DNA</div>
-            <div style="color: var(--text-muted); font-size: 0.95rem; font-weight: 600;" id="fcFullName">(Deoxyribonucleic acid)</div>
-            <div class="ipa-text" id="fcIpa">/ˌdiː en ˈeɪ/</div>
-
-            <div class="audio-row">
-              <audio id="fcAudio" class="audio-player-custom" controls src="" onerror="handleAudioError(this)"></audio>
-              <button class="btn-speak-tts" onclick="speakCurrentWord()" title="Nghe phát âm bản ngữ trực tiếp">
-                🔊 Nghe chuẩn
-              </button>
-            </div>
-
-            <div class="def-box">
-              <div class="def-label">Định nghĩa Tiếng Anh</div>
-              <div style="font-size: 0.95rem; font-weight: 500;" id="fcDefEn"></div>
-            </div>
-
-            <div class="def-box" style="border-left-color: var(--ocean);">
-              <div class="def-label" style="color: var(--ocean);">Ý nghĩa Tiếng Việt</div>
-              <div style="font-size: 0.95rem; font-weight: 500;" id="fcDefVi"></div>
-            </div>
-          </div>
+      <!-- WIDGET LUYỆN NHỚ TỪ: SẮP XẾP LẠI CHỮ CÁI (FULL-WIDTH) -->
+      <div class="scramble-full-card">
+        <div class="scramble-heading">✏️ Luyện nhớ từ này: Sắp xếp lại các chữ cái</div>
+        <div class="scramble-chips-row" id="scrambleLettersContainer"></div>
+        <div class="scramble-input-group">
+          <input type="text" id="scrambleInput" class="form-control" autocomplete="off" style="text-transform: uppercase; font-weight: 700; text-align: center;" />
+          <button class="btn btn-primary" style="padding: 0 1.5rem;" onclick="checkScramble()">Kiểm tra</button>
         </div>
+        <div id="scrambleFeedback" style="margin-top: 0.65rem; font-weight: 700; font-size: 0.9rem;"></div>
+      </div>
 
-        <!-- Khối phải: Video + Scramble -->
-        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;">Video phát âm & Mô phỏng (9:16)</h3>
-            <div class="media-video-wrap">
-              <video id="fcVideo" controls poster="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=500&auto=format&fit=crop&q=80">
-                <source src="" type="video/mp4">
-                Trình duyệt không hỗ trợ video.
-              </video>
-            </div>
-          </div>
-
-          <div class="scramble-widget">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-weight: 700; color: var(--amber); font-size: 0.9rem;">🧩 Sắp xếp đúng thứ tự ký tự:</span>
-              <button class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="resetScramble()">Làm lại</button>
-            </div>
-            <div class="scramble-letters" id="scrambleLettersContainer"></div>
-            <div style="display: flex; gap: 0.5rem;">
-              <input type="text" id="scrambleInput" class="form-control" autocomplete="off" style="text-transform: uppercase; font-weight: 700;" />
-              <button class="btn btn-amber" onclick="checkScramble()">Kiểm tra</button>
-            </div>
-            <div id="scrambleFeedback" style="margin-top: 0.5rem; font-weight: 700; font-size: 0.85rem;"></div>
-          </div>
-        </div>
+      <!-- NÚT CHUYỂN NHANH ĐẾN BÀI KIỂM TRA -->
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <button class="btn-cta-exam" onclick="switchScreen('arena')">
+          🚀 Đi đến Bài kiểm tra tổng hợp Unit 1 (9 từ)
+        </button>
       </div>
     </section>
 
-    <!-- SCREEN 3: PRACTICE REVIEW QUIZ (CÓ ĐIỀN KHUYẾT DẠNG DROPDOWN SỔ XUỐNG 4 CHỮ CÁI) -->
+    <!-- MÀN HÌNH 3: REVIEW QUIZ (ĐIỀN KHUYẾT DẠNG SỔ XUỐNG 4 CHỮ CÁI) -->
     <section id="screen-practice" class="screen">
       <div class="card" style="margin-bottom: 1rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
@@ -535,7 +605,7 @@
 
         <div style="margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <span class="word-badge" id="practiceQuestionTypeBadge">MCQ</span>
+            <span class="unit-hero-badge" id="practiceQuestionTypeBadge" style="margin-bottom:0;">MCQ</span>
             <button class="btn btn-outline" style="padding: 0.25rem 0.6rem; font-size: 0.8rem;" onclick="togglePracticeHint()">💡 Gợi ý</button>
           </div>
           <h3 id="practiceQuestionTitle" style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem;"></h3>
@@ -551,7 +621,7 @@
       </div>
     </section>
 
-    <!-- SCREEN 4: ARENA (MÃ DO GV CUNG CẤP: CVA, TUDO, TU DO) -->
+    <!-- MÀN HÌNH 4: ĐẤU TRƯỜNG (KHÓA MÃ: CVA, TUDO, TU DO) -->
     <section id="screen-arena" class="screen">
       <div id="arenaLockBox" class="card" style="max-width: 500px; margin: 2rem auto; text-align: center;">
         <span style="font-size: 2.5rem;">🛡️</span>
@@ -583,7 +653,7 @@
 
           <div style="margin-bottom: 1.25rem;">
             <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-              <span class="word-badge" id="arenaQuestionTypeBadge">MCQ</span>
+              <span class="unit-hero-badge" id="arenaQuestionTypeBadge" style="margin-bottom:0;">MCQ</span>
               <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);" id="arenaQNumberLabel">Câu 1/10</span>
             </div>
             <h3 id="arenaQuestionTitle" style="font-size: 1.15rem; font-weight: 700;"></h3>
@@ -620,16 +690,17 @@
   </main>
 
   <footer>
-    <div>THPT Chu Văn An - Sách giáo khoa Sinh học 12 (Chương trình GDPT 2018)</div>
+    <div>Biology Digital Learning Material • THPT Chu Văn An - Thái Nguyên</div>
     <div class="view-counter">
       <span>👁️ Lượt truy cập bài học:</span>
       <span id="viewCountText">...</span>
     </div>
   </footer>
 
+  <!-- SCRIPT CONTROLLER -->
   <script>
     /* ==========================================================================
-       1. DATA DEFINITIONS (CHUẨN HÓA KHỚP 100% VỚI TÊN FILE THỰC TẾ TRONG MEDIA/)
+       1. DATA DEFINITIONS (KHỚP 100% VỚI TÊN FILE THỰC TẾ TRONG THƯ MỤC MEDIA/)
        ========================================================================== */
     const VOCABULARY_DATA = [
       {
@@ -639,8 +710,7 @@
         fullName: "(Deoxyribonucleic acid)",
         ipa: "/ˌdiː en ˈeɪ/",
         defEn: "A molecule that carries the genetic instructions.",
-        defVi: "Deoxyribonucleic acid. Một phân tử mang thông tin di truyền.",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#ecfdf5"/><path d="M50,60 Q100,180 150,60 T250,60 T350,60" fill="none" stroke="#059669" stroke-width="6"/><path d="M50,180 Q100,60 150,180 T250,180 T350,180" fill="none" stroke="#0284c7" stroke-width="6"/><line x1="150" y1="60" x2="150" y2="180" stroke="#10b981" stroke-width="4"/><line x1="250" y1="60" x2="250" y2="180" stroke="#38bdf8" stroke-width="4"/><text x="200" y="215" font-family="sans-serif" font-weight="bold" font-size="16" fill="#065f46" text-anchor="middle">DNA Double Helix (Mô hình xoắn kép)</text></svg>`
+        defVi: "Deoxyribonucleic acid. Một phân tử mang thông tin di truyền."
       },
       {
         id: 2,
@@ -649,8 +719,7 @@
         fullName: "",
         ipa: "/ˈnjuːkliətaɪd/",
         defEn: "The basic building block of nucleic acids (DNA and RNA).",
-        defVi: "Đơn vị cấu tạo cơ bản của nucleic acid (DNA và RNA).",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f0f9ff"/><circle cx="100" cy="110" r="35" fill="#f59e0b"/><text x="100" y="115" font-weight="bold" font-size="13" fill="#fff" text-anchor="middle">Phosphate</text><polygon points="200,75 245,105 230,155 170,155 155,105" fill="#0284c7"/><text x="200" y="125" font-weight="bold" font-size="13" fill="#fff" text-anchor="middle">Đường</text><rect x="270" y="85" width="80" height="50" rx="8" fill="#10b981"/><text x="310" y="115" font-weight="bold" font-size="13" fill="#fff" text-anchor="middle">Base (A,T,G,C)</text><text x="200" y="210" font-family="sans-serif" font-weight="bold" font-size="15" fill="#0369a1" text-anchor="middle">Cấu trúc 1 Nucleotide</text></svg>`
+        defVi: "Đơn vị cấu tạo cơ bản của nucleic acid (DNA và RNA)."
       },
       {
         id: 3,
@@ -659,8 +728,7 @@
         fullName: "",
         ipa: "/ˈproʊtiːn/",
         defEn: "Large, complex molecules made up of amino acid chains.",
-        defVi: "Các phân tử lớn, phức tạp được tạo thành từ chuỗi các amino acid.",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fef3c7"/><circle cx="80" cy="110" r="22" fill="#ef4444"/><circle cx="130" cy="90" r="22" fill="#3b82f6"/><circle cx="180" cy="130" r="22" fill="#10b981"/><circle cx="230" cy="85" r="22" fill="#8b5cf6"/><circle cx="280" cy="125" r="22" fill="#f59e0b"/><circle cx="330" cy="95" r="22" fill="#06b6d4"/><path d="M80,110 Q105,100 130,90 T180,130 T230,85 T280,125 T330,95" fill="none" stroke="#6b7280" stroke-width="4" stroke-dasharray="6,4"/><text x="200" y="200" font-family="sans-serif" font-weight="bold" font-size="15" fill="#92400e" text-anchor="middle">Chuỗi Polypeptide (Amino Acids)</text></svg>`
+        defVi: "Các phân tử lớn, phức tạp được tạo thành từ chuỗi các amino acid."
       },
       {
         id: 4,
@@ -669,8 +737,7 @@
         fullName: "(Origin of replication)",
         ipa: "/ˈɔːraɪ/",
         defEn: "A particular sequence in a genome at which replication is initiated.",
-        defVi: "Một trình tự DNA cụ thể, nơi quá trình sao chép DNA được bắt đầu.",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#ecfdf5"/><line x1="40" y1="120" x2="360" y2="120" stroke="#059669" stroke-width="8"/><rect x="150" y="90" width="100" height="60" rx="8" fill="#d97706"/><text x="200" y="127" font-weight="bold" font-size="16" fill="#fff" text-anchor="middle">ORI SITE</text><text x="200" y="200" font-family="sans-serif" font-weight="bold" font-size="15" fill="#065f46" text-anchor="middle">Điểm khởi đầu sao chép (Origin)</text></svg>`
+        defVi: "Một trình tự DNA cụ thể, nơi quá trình sao chép DNA được bắt đầu."
       },
       {
         id: 5,
@@ -679,8 +746,7 @@
         fullName: "",
         ipa: "/ˈenzaɪm/",
         defEn: "A type of protein that acts as a biological catalyst, speeding up chemical reactions in cells.",
-        defVi: "Một loại protein hoạt động như chất xúc tác sinh học, giúp tăng tốc các phản ứng hóa học trong tế bào.",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f0fdf4"/><path d="M120,60 C70,60 70,180 120,180 L250,180 C270,180 280,160 280,140 C260,140 250,130 250,120 C250,110 260,100 280,100 C280,80 270,60 250,60 Z" fill="#059669"/><rect x="255" y="105" width="40" height="30" rx="4" fill="#f59e0b"/><text x="180" y="127" font-weight="bold" font-size="16" fill="#fff" text-anchor="middle">Enzyme</text><text x="200" y="210" font-family="sans-serif" font-weight="bold" font-size="15" fill="#065f46" text-anchor="middle">Xúc tác sinh học (Catalyst)</text></svg>`
+        defVi: "Một loại protein hoạt động như chất xúc tác sinh học, giúp tăng tốc các phản ứng hóa học trong tế bào."
       },
       {
         id: 6,
@@ -689,8 +755,7 @@
         fullName: "",
         ipa: "/ˌɑːr en ˌeɪ pəˈlɪməreɪs/",
         defEn: "An enzyme that synthesizes RNA from a DNA template.",
-        defVi: "Một loại enzyme tổng hợp RNA từ một khuôn DNA.",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#eff6ff"/><ellipse cx="200" cy="110" rx="90" ry="60" fill="#0284c7" opacity="0.85"/><text x="200" y="115" font-weight="bold" font-size="15" fill="#fff" text-anchor="middle">RNA Polymerase</text><path d="M60,150 L340,150" stroke="#059669" stroke-width="5"/><text x="200" y="205" font-family="sans-serif" font-weight="bold" font-size="15" fill="#0369a1" text-anchor="middle">Tổng hợp mạch RNA từ mạch khuôn</text></svg>`
+        defVi: "Một loại enzyme tổng hợp RNA từ một khuôn DNA."
       },
       {
         id: 7,
@@ -699,8 +764,7 @@
         fullName: "(Ribonucleic acid)",
         ipa: "/ˌɑːr en ˈeɪ/",
         defEn: "A product of the transcription process, it plays a role in transmitting genetic information from genes to proteins.",
-        defVi: "Là sản phẩm của quá trình phiên mã, đóng vai trò truyền đạt thông tin di truyền từ gene tới protein.",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fef2f2"/><path d="M60,140 Q110,60 160,140 T260,140 T360,140" fill="none" stroke="#ef4444" stroke-width="6"/><rect x="100" y="90" width="12" height="15" fill="#3b82f6"/><rect x="150" y="130" width="12" height="15" fill="#10b981"/><rect x="200" y="85" width="12" height="15" fill="#f59e0b"/><rect x="250" y="130" width="12" height="15" fill="#8b5cf6"/><text x="200" y="200" font-family="sans-serif" font-weight="bold" font-size="15" fill="#991b1b" text-anchor="middle">Mạch đơn RNA (Single Strand)</text></svg>`
+        defVi: "Là sản phẩm của quá trình phiên mã, đóng vai trò truyền đạt thông tin di truyền từ gene tới protein."
       },
       {
         id: 8,
@@ -709,8 +773,7 @@
         fullName: "",
         ipa: "/ˌoʊkəˈzɑːki/",
         defEn: "Short, newly synthesized DNA fragments that are formed on the lagging template strand during DNA replication.",
-        defVi: "Những đoạn DNA ngắn mới được tổng hợp trên mạch khuôn gián đoạn trong quá trình sao chép DNA.",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f8fafc"/><line x1="50" y1="80" x2="350" y2="80" stroke="#64748b" stroke-width="4"/><line x1="70" y1="130" x2="140" y2="130" stroke="#0284c7" stroke-width="7"/><line x1="170" y1="130" x2="240" y2="130" stroke="#0284c7" stroke-width="7"/><line x1="270" y1="130" x2="340" y2="130" stroke="#0284c7" stroke-width="7"/><text x="200" y="195" font-family="sans-serif" font-weight="bold" font-size="15" fill="#334155" text-anchor="middle">Các đoạn Okazaki gián đoạn</text></svg>`
+        defVi: "Những đoạn DNA ngắn mới được tổng hợp trên mạch khuôn gián đoạn trong quá trình sao chép DNA."
       },
       {
         id: 9,
@@ -719,12 +782,10 @@
         fullName: "",
         ipa: "/ˈlɪɡeɪs/",
         defEn: "An enzyme that joins Okazaki fragments together in DNA replication.",
-        defVi: "Một loại enzyme nối các đoạn Okazaki lại với nhau trong sao chép DNA.",
-        svgFallback: `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fffbeb"/><line x1="60" y1="110" x2="180" y2="110" stroke="#0284c7" stroke-width="7"/><line x1="220" y1="110" x2="340" y2="110" stroke="#0284c7" stroke-width="7"/><circle cx="200" cy="110" r="28" fill="#d97706"/><text x="200" y="115" font-weight="bold" font-size="12" fill="#fff" text-anchor="middle">LIGASE</text><text x="200" y="195" font-family="sans-serif" font-weight="bold" font-size="15" fill="#92400e" text-anchor="middle">Enzyme nối các đoạn DNA</text></svg>`
+        defVi: "Một loại enzyme nối các đoạn Okazaki lại với nhau trong sao chép DNA."
       }
     ];
 
-    // Cấu hình phòng thi: CVA, TUDO hoặc TU DO
     const ARENA_CONFIG = {
       validCodes: ["CVA", "TUDO"],
       durationMinutes: 10,
@@ -814,7 +875,7 @@
     };
 
     /* ==========================================================================
-       2. USER & NAVIGATION LOGIC
+       2. USER & APP NAVIGATION LOGIC
        ========================================================================== */
     let currentUser = { name: "", class: "", id: "" };
     let currentCardIndex = 0;
@@ -852,7 +913,6 @@
       }
     }
 
-    // Học sinh điền bất kỳ nội dung nào cũng đều được vào lớp học ngay
     function saveUserInfoAndStart() {
       const nameInput = document.getElementById("inputStudentName").value.trim();
       const classInput = document.getElementById("inputStudentClass").value.trim();
@@ -872,7 +932,7 @@
     }
 
     /* ==========================================================================
-       3. FLASHCARD, MEDIA & SPEECH SYNTHESIS (TTS)
+       3. FLASHCARD ENGINE (NẠP ĐÚNG FILE THỰC TẾ, KHÔNG CẮT XÉN)
        ========================================================================== */
     function renderFlashcard(index) {
       if (index < 0) index = 0;
@@ -881,23 +941,17 @@
 
       const item = VOCABULARY_DATA[index];
       document.getElementById("fcCounter").innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
-      document.getElementById("fcCodeBadge").innerText = `Unit 1 • ${item.code}`;
-      document.getElementById("fcWord").innerText = item.word;
-      document.getElementById("fcFullName").innerText = item.fullName || "";
-      document.getElementById("fcIpa").innerText = item.ipa;
-      document.getElementById("fcDefEn").innerText = item.defEn;
-      document.getElementById("fcDefVi").innerText = item.defVi;
 
-      // Nạp ảnh thật từ thư mục media, nếu lỗi nạp SVG vector sinh học
-      const wrap = document.getElementById("fcImgWrapper");
-      wrap.innerHTML = `<img id="fcImg" src="media/${item.code}.png" alt="${item.word}" onerror="handleImageError(this, ${index})" />`;
+      // Nạp ảnh Slide thật
+      const imgEl = document.getElementById("fcImg");
+      imgEl.src = `media/${item.code}.png`;
 
       // Nạp audio thật
       const audioEl = document.getElementById("fcAudio");
       audioEl.src = `media/${item.code}.mp3`;
       audioEl.load();
 
-      // Nạp video thật
+      // Nạp video thật (tự động hiển thị khung hình đầu tiên, không có poster ngoài)
       const videoEl = document.getElementById("fcVideo");
       videoEl.src = `media/${item.code}.mp4`;
       videoEl.load();
@@ -905,27 +959,9 @@
       setupScramble(item.word);
     }
 
-    function handleImageError(imgEl, idx) {
-      const item = VOCABULARY_DATA[idx !== undefined ? idx : currentCardIndex];
-      const wrap = document.getElementById("fcImgWrapper");
-      wrap.innerHTML = item.svgFallback;
-    }
-
-    function handleAudioError(audioEl) {
-      console.log("Audio file đang tải hoặc chưa sẵn sàng.");
-    }
-
-    function speakCurrentWord() {
-      const item = VOCABULARY_DATA[currentCardIndex];
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(item.word);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.85;
-        window.speechSynthesis.speak(utterance);
-      } else {
-        alert("Trình duyệt không hỗ trợ Web Speech API.");
-      }
+    function handleImageError(imgEl) {
+      // Fallback an toàn nếu một file png bị thiếu
+      imgEl.src = "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=800&auto=format&fit=crop&q=80";
     }
 
     function navigateCard(direction) {
@@ -945,7 +981,7 @@
       container.innerHTML = "";
       letters.forEach(char => {
         const chip = document.createElement("span");
-        chip.className = "letter-chip";
+        chip.className = "scramble-chip";
         chip.innerText = char;
         container.appendChild(chip);
       });
@@ -954,22 +990,18 @@
       document.getElementById("scrambleFeedback").innerText = "";
     }
 
-    function resetScramble() {
-      setupScramble(VOCABULARY_DATA[currentCardIndex].word);
-    }
-
     function checkScramble() {
       const userVal = document.getElementById("scrambleInput").value.trim().toUpperCase().replace(/\s+/g, '');
       const fb = document.getElementById("scrambleFeedback");
       if (userVal === currentScrambleTarget) {
-        fb.innerHTML = "<span style='color: var(--success);'>🎉 Hoàn toàn chính xác! Ký tự đã được sắp xếp chuẩn.</span>";
+        fb.innerHTML = "<span style='color: var(--success);'>🎉 Hoàn toàn chính xác! Chúc mừng bạn.</span>";
       } else {
-        fb.innerHTML = "<span style='color: var(--danger);'>❌ Chưa chính xác, hãy quan sát các ký tự trên và thử lại!</span>";
+        fb.innerHTML = "<span style='color: var(--danger);'>❌ Chưa chính xác, hãy quan sát các ký tự và thử lại!</span>";
       }
     }
 
     /* ==========================================================================
-       4. REVIEW QUIZ (ĐIỀN KHUYẾT DẠNG SỔ XUỐNG DROPDOWN 4 LỰA CHỌN)
+       4. REVIEW QUIZ (ĐIỀN KHUYẾT DẠNG SỔ XUỐNG 4 LỰA CHỌN)
        ========================================================================== */
     function initPracticeQuiz(totalQuestions) {
       document.getElementById("btnQuiz10").classList.toggle("btn-primary", totalQuestions === 10);
@@ -1000,7 +1032,6 @@
         const item = VOCABULARY_DATA[(i + 2) % VOCABULARY_DATA.length];
         const cleanWord = item.word.toUpperCase();
         
-        // Chọn vị trí chữ cái để ẩn (bỏ qua dấu cách nếu có)
         let validIndices = [];
         for (let idx = 0; idx < cleanWord.length; idx++) {
           if (cleanWord[idx] >= 'A' && cleanWord[idx] <= 'Z') validIndices.push(idx);
@@ -1009,7 +1040,6 @@
         const correctChar = cleanWord.charAt(missingPos);
         const blanked = cleanWord.substring(0, missingPos) + " [ ? ] " + cleanWord.substring(missingPos + 1);
 
-        // Tạo 3 chữ cái gây nhiễu ngẫu nhiên không trùng với chữ cái đúng
         let distractors = [];
         while (distractors.length < 3) {
           const randChar = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
@@ -1097,7 +1127,6 @@
           body.appendChild(btn);
         });
       } else if (q.type === "fill_dropdown") {
-        // Dạng bài điền khuyết với menu Dropdown 4 lựa chọn
         const wrap = document.createElement("div");
         wrap.style.display = "flex";
         wrap.style.flexDirection = "column";
@@ -1160,7 +1189,6 @@
         wrap.appendChild(feedbackSpan);
         body.appendChild(wrap);
       } else {
-        // Scramble
         const wrap = document.createElement("div");
         wrap.style.display = "flex";
         wrap.style.gap = "0.75rem";
@@ -1219,7 +1247,6 @@
        5. ARENA SYSTEM (MÃ PHÒNG: CVA, TUDO, TU DO)
        ========================================================================== */
     function startArenaExam() {
-      // Chuẩn hóa: xóa khoảng trắng và chuyển chữ hoa (tu do -> TUDO)
       const rawInput = document.getElementById("arenaRoomCodeInput").value.trim().toUpperCase();
       const cleanInput = rawInput.replace(/\s+/g, '');
 
