@@ -42,7 +42,6 @@
       flex-direction: column;
     }
 
-    /* TOP HEADER & TABS */
     header {
       background: linear-gradient(135deg, var(--primary-dark), var(--primary));
       color: white;
@@ -147,12 +146,10 @@
     }
     .btn-primary { background: var(--primary); color: white; }
     .btn-primary:hover { background: var(--primary-dark); }
-    .btn-amber { background: var(--amber); color: white; }
-    .btn-amber:hover { background: var(--amber-dark); }
     .btn-outline { background: #e2e8f0; color: #334155; }
     .btn-outline:hover { background: #cbd5e1; }
 
-    /* MÀN HÌNH WELCOME */
+    /* WELCOME SCREEN */
     .welcome-container {
       max-width: 520px;
       margin: 2rem auto;
@@ -174,7 +171,7 @@
       box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
     }
 
-    /* MÀN HÌNH FLASHCARD (CHUẨN HÓA THEO MẪU ẢNH SỐ 3) */
+    /* FLASHCARD SCREEN */
     .unit-hero-badge {
       display: inline-block;
       background: var(--primary-light);
@@ -194,7 +191,7 @@
     .unit-hero-sub {
       color: var(--text-muted);
       font-size: 0.95rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
     }
     .fc-counter-pill {
       display: inline-block;
@@ -229,6 +226,7 @@
     }
     .fc-slide-container {
       width: 100%;
+      aspect-ratio: 16 / 9;
       border-radius: var(--radius-md);
       overflow: hidden;
       background: #f8fafc;
@@ -240,12 +238,12 @@
     }
     .fc-slide-container img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
       object-fit: contain;
     }
 
-    .fc-listen-title {
+    .fc-listen-title, .fc-video-title {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -260,16 +258,6 @@
       height: 40px;
     }
 
-    .fc-video-title {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      font-weight: 700;
-      color: var(--primary-dark);
-      font-size: 1rem;
-      margin-bottom: 0.65rem;
-    }
     .fc-video-container {
       width: 100%;
       max-width: 340px;
@@ -370,7 +358,7 @@
       box-shadow: 0 8px 22px rgba(217, 119, 6, 0.45);
     }
 
-    /* MÀN HÌNH REVIEW QUIZ & ARENA */
+    /* REVIEW QUIZ & ARENA */
     .quiz-nav-slider {
       display: flex;
       gap: 0.4rem;
@@ -482,7 +470,7 @@
   </nav>
 
   <main>
-    <!-- MÀN HÌNH 1: WELCOME (KHÔNG CÒN CHỮ MỜ, NHẬP BẤT KỲ GÌ CŨNG ĐƯỢC) -->
+    <!-- MÀN HÌNH 1: WELCOME -->
     <section id="screen-welcome" class="screen active">
       <div class="card welcome-container">
         <span class="unit-hero-badge">HỆ THỐNG ÔN TẬP THUẬT NGỮ SINH HỌC 12</span>
@@ -519,7 +507,7 @@
       </div>
     </section>
 
-    <!-- MÀN HÌNH 2: FLASHCARD ĐA PHƯƠNG TIỆN (CHUẨN FORM ẢNH SỐ 3) -->
+    <!-- MÀN HÌNH 2: FLASHCARD ĐA PHƯƠNG TIỆN -->
     <section id="screen-flashcard" class="screen">
       <div style="text-align: center; margin-bottom: 1.25rem;">
         <span class="unit-hero-badge">Unit 1 - DNA and DNA replication</span>
@@ -528,7 +516,7 @@
         <div class="fc-counter-pill" id="fcCounter">1 / 9</div>
       </div>
 
-      <!-- 2 CỘT CÂN ĐỐI NGUYÊN BẢN -->
+      <!-- 2 CỘT CÂN ĐỐI -->
       <div class="flashcard-dual-grid">
         <!-- Cột trái: Ảnh Slide bài học & Listen Repeat -->
         <div class="fc-column-card">
@@ -565,7 +553,7 @@
         <button class="btn btn-next" onclick="navigateCard(1)">Next ▶</button>
       </div>
 
-      <!-- WIDGET LUYỆN NHỚ TỪ: SẮP XẾP LẠI CHỮ CÁI (FULL-WIDTH) -->
+      <!-- WIDGET LUYỆN NHỚ TỪ: SẮP XẾP LẠI CHỮ CÁI -->
       <div class="scramble-full-card">
         <div class="scramble-heading">✏️ Luyện nhớ từ này: Sắp xếp lại các chữ cái</div>
         <div class="scramble-chips-row" id="scrambleLettersContainer"></div>
@@ -584,7 +572,7 @@
       </div>
     </section>
 
-    <!-- MÀN HÌNH 3: REVIEW QUIZ (ĐIỀN KHUYẾT DẠNG SỔ XUỐNG 4 CHỮ CÁI) -->
+    <!-- MÀN HÌNH 3: REVIEW QUIZ -->
     <section id="screen-practice" class="screen">
       <div class="card" style="margin-bottom: 1rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
@@ -621,7 +609,7 @@
       </div>
     </section>
 
-    <!-- MÀN HÌNH 4: ĐẤU TRƯỜNG (KHÓA MÃ: CVA, TUDO, TU DO) -->
+    <!-- MÀN HÌNH 4: ĐẤU TRƯỜNG -->
     <section id="screen-arena" class="screen">
       <div id="arenaLockBox" class="card" style="max-width: 500px; margin: 2rem auto; text-align: center;">
         <span style="font-size: 2.5rem;">🛡️</span>
@@ -875,7 +863,7 @@
     };
 
     /* ==========================================================================
-       2. USER & APP NAVIGATION LOGIC
+       2. USER & NAVIGATION LOGIC
        ========================================================================== */
     let currentUser = { name: "", class: "", id: "" };
     let currentCardIndex = 0;
@@ -932,7 +920,7 @@
     }
 
     /* ==========================================================================
-       3. FLASHCARD ENGINE (NẠP ĐÚNG FILE THỰC TẾ, KHÔNG CẮT XÉN)
+       3. FLASHCARD ENGINE
        ========================================================================== */
     function renderFlashcard(index) {
       if (index < 0) index = 0;
@@ -942,16 +930,13 @@
       const item = VOCABULARY_DATA[index];
       document.getElementById("fcCounter").innerText = `${index + 1} / ${VOCABULARY_DATA.length}`;
 
-      // Nạp ảnh Slide thật
       const imgEl = document.getElementById("fcImg");
       imgEl.src = `media/${item.code}.png`;
 
-      // Nạp audio thật
       const audioEl = document.getElementById("fcAudio");
       audioEl.src = `media/${item.code}.mp3`;
       audioEl.load();
 
-      // Nạp video thật (tự động hiển thị khung hình đầu tiên, không có poster ngoài)
       const videoEl = document.getElementById("fcVideo");
       videoEl.src = `media/${item.code}.mp4`;
       videoEl.load();
@@ -960,7 +945,6 @@
     }
 
     function handleImageError(imgEl) {
-      // Fallback an toàn nếu một file png bị thiếu
       imgEl.src = "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=800&auto=format&fit=crop&q=80";
     }
 
@@ -990,6 +974,10 @@
       document.getElementById("scrambleFeedback").innerText = "";
     }
 
+    function resetScramble() {
+      setupScramble(VOCABULARY_DATA[currentCardIndex].word);
+    }
+
     function checkScramble() {
       const userVal = document.getElementById("scrambleInput").value.trim().toUpperCase().replace(/\s+/g, '');
       const fb = document.getElementById("scrambleFeedback");
@@ -1001,7 +989,7 @@
     }
 
     /* ==========================================================================
-       4. REVIEW QUIZ (ĐIỀN KHUYẾT DẠNG SỔ XUỐNG 4 LỰA CHỌN)
+       4. REVIEW QUIZ
        ========================================================================== */
     function initPracticeQuiz(totalQuestions) {
       document.getElementById("btnQuiz10").classList.toggle("btn-primary", totalQuestions === 10);
@@ -1244,7 +1232,7 @@
     }
 
     /* ==========================================================================
-       5. ARENA SYSTEM (MÃ PHÒNG: CVA, TUDO, TU DO)
+       5. ARENA SYSTEM
        ========================================================================== */
     function startArenaExam() {
       const rawInput = document.getElementById("arenaRoomCodeInput").value.trim().toUpperCase();
